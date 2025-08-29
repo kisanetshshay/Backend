@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-8 items-start">
+   
+    <div class="md:w-1/2">
+        <div class="bg-white p-8 rounded-xl shadow-lg border">
+            <img 
+            src="https://source.unsplash.com/random/400x400/?{{ product.name|lower }},product" 
+            alt="{{ product.name }}"
+            class="w-full h-auto rounded-lg object-cover"
+          />
+        </div>
+    </div>
+
+    
+    <div class="md:w-1/2 space-y-6">
+        <h1 class="text-4xl font-extrabold text-gray-900">{{ product.name }}</h1>
+        <p class="text-lg text-gray-600 leading-relaxed">{{ product.description }}</p>
+        <p class="text-3xl font-bold text-green-600">${{ product.price }}</p>
+
+        <form method="post" action="{% url 'add_to_cart' product.id %}" class="mt-8">
+            {% csrf_token %}
+            <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                ➕ Add to Cart
+            </button>
+        </form>
+
+        <div class="pt-4 border-t border-gray-200">
+            <a href="{% url 'cart_detail' %}" class="text-blue-600 hover:underline font-medium">Go to Cart →</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
